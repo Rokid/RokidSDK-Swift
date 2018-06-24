@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RokidSDK"
-  s.version      = "1.0.12"
+  s.version      = "1.2.0"
   s.summary      = "Rokid Mobile SDK"
 
   # This description is used to generate tags and improve search results.
@@ -133,6 +133,9 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
+
+   s.dependency 'AFNetworking', '2.6.3'
+   s.dependency 'MQTTClient', '~> 0.14.0'
    s.dependency 'SQLite.swift', '~> 0.11.4'
    s.dependency 'ProtocolBuffers-Swift', '3.0.23'
    s.dependency 'Starscream', '2.0.3'
