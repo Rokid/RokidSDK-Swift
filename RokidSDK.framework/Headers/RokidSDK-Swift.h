@@ -376,6 +376,9 @@ SWIFT_PROTOCOL("_TtP8RokidSDK27RKBridgeModulePhoneDelegate_")
 - (void)touchMove;
 - (void)touchUp;
 - (void)scrollWithX:(float)x y:(float)y;
+- (void)storageSaveWithKey:(NSString * _Nonnull)key value:(NSString * _Nonnull)value;
+- (NSString * _Nonnull)storageGetWithKey:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
+- (void)storageRemoveWithKey:(NSString * _Nonnull)key;
 @end
 
 @protocol RKBridgeModuleViewDelegate;
@@ -510,11 +513,11 @@ SWIFT_CLASS("_TtC8RokidSDK8RKDevice")
 @end
 
 
-
-
 @interface RKDevice (SWIFT_EXTENSION(RokidSDK))
 - (NSString * _Nullable)defaultSkillIdOf:(NSString * _Nonnull)domainId SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 @interface RKDevice (SWIFT_EXTENSION(RokidSDK))
@@ -523,6 +526,7 @@ SWIFT_CLASS("_TtC8RokidSDK8RKDevice")
 /// \param ver 指定的系统版本
 ///
 - (BOOL)isAvailableSince:(NSString * _Nonnull)ver SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)moreThanVersionSince:(NSString * _Nonnull)ver SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
