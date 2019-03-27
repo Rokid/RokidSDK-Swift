@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RokidSDK"
-  s.version      = "1.7.3"
+  s.version      = "1.7.2"
   s.summary      = "Rokid Mobile SDK"
   s.swift_version = '4.0'
   # This description is used to generate tags and improve search results.
