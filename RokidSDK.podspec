@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RokidSDK"
-  s.version      = "1.7.3"
+  s.version      = "1.7.4"
   s.summary      = "Rokid Mobile SDK"
   s.swift_version = '4.0'
   # This description is used to generate tags and improve search results.
@@ -53,10 +53,10 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "朝辉贾" => "chaohui.jia@rokid.com" }
-  # Or just: s.author    = "朝辉贾"
-  # s.authors            = { "朝辉贾" => "chaohui.jia@rokid.com" }
-  # s.social_media_url   = "http://twitter.com/朝辉贾"
+  s.author             = { "石旭盼" => "xupan.shi@rokid.com" }
+  # Or just: s.author    = "石旭盼"
+  # s.authors            = { "石旭盼" => "xupan.shi@rokid.com" }
+  # s.social_media_url   = "http://twitter.com/石旭盼"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -134,8 +134,8 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
 
-   s.dependency 'AFNetworking', '2.6.3'
-   s.dependency 'Alamofire', '4.7.3'
+   s.dependency 'AFNetworking', '~> 2.6.3'
+   s.dependency 'Alamofire', '~> 4.7.3'
    s.dependency 'MQTTClient', '~> 0.14.0'
    s.dependency 'CocoaAsyncSocket', '7.6.0'
    s.dependency 'ReachabilitySwift', '4.1.0'
