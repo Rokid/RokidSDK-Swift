@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RokidSDK"
-  s.version      = "1.7.8"
+  s.version      = "1.7.9"
   s.summary      = "Rokid Mobile SDK"
   s.swift_version = '4.0'
   # This description is used to generate tags and improve search results.
@@ -137,6 +137,6 @@ Pod::Spec.new do |s|
    s.dependency 'AFNetworking'
    s.dependency 'Alamofire'
    s.dependency 'MQTTClient', '~> 0.14.0'
-   s.dependency 'CocoaAsyncSocket', '7.6.0'
-   s.dependency 'ReachabilitySwift', '4.1.0'
+   s.dependency 'CocoaAsyncSocket'
+   s.dependency 'ReachabilitySwift'
 end
