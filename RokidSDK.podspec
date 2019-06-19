@@ -16,9 +16,10 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RokidSDK"
-  s.version      = "1.9.2"
+  s.version      = "1.9.3"
   s.summary      = "Rokid Mobile SDK"
   s.swift_version = '4.0'
+
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
   #   * Try to keep it short, snappy and to the point.
@@ -42,14 +43,12 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/Rokid/RokidSDK-Swift.git", :tag => "#{s.version}" }
 
 
-  s.vendored_frameworks ='RokidSDK.framework'
-  s.vendored_frameworks ='KGMusicSDK.framework'
+  s.vendored_frameworks = ["RokidSDK.framework", "KGMusicSDK.framework"]
 
-
-   s.dependency 'AFNetworking'
-   s.dependency 'Alamofire'
-   s.dependency 'MQTTClient', '~> 0.14.0'
-   s.dependency 'CocoaAsyncSocket'
-   s.dependency 'ReachabilitySwift'
+  s.dependency 'AFNetworking'
+  s.dependency 'Alamofire'
+  s.dependency 'MQTTClient', '~> 0.14.0'
+  s.dependency 'CocoaAsyncSocket'
+  s.dependency 'ReachabilitySwift'
 
 end
