@@ -331,14 +331,79 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) RKAccountMan
 @property (nonatomic, readonly) BOOL isRefreshingToken;
 @end
 
-
-
 @class RKError;
+
+@interface RKAccountManager (SWIFT_EXTENSION(RokidSDK))
+/// 获取验证码，60s 过期。
+/// \param areaCode 手机号码所属区域号，比如：“+86”
+///
+/// \param phoneNum 手机号
+///
+/// \param completion 完成回调
+///
+- (void)getScodeWithAreaCode:(NSString * _Nonnull)areaCode phoneNum:(NSString * _Nonnull)phoneNum completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 校验验证码
+/// \param phoneNum 手机号
+///
+/// \param scode 验证码
+///
+/// \param completion 完成回调
+///
+- (void)checkScodeWithPhoneNum:(NSString * _Nonnull)phoneNum scode:(NSString * _Nonnull)scode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 注册账号
+/// \param phoneNum 手机号
+///
+/// \param password 密码
+///
+/// \param scode 手机收到的短信验证码
+///
+/// \param areaCode 手机号码所属区域号，比如：“+86”
+///
+/// \param completion 完成回调
+///
+- (void)registerWithPhoneNum:(NSString * _Nonnull)phoneNum password:(NSString * _Nonnull)password scode:(NSString * _Nonnull)scode areaCode:(NSString * _Nonnull)areaCode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+@end
+
+
+
+@class SDKUserInfo;
 
 @interface RKAccountManager (SWIFT_EXTENSION(RokidSDK))
 - (void)tempLoginWithName:(NSString * _Nonnull)name password:(NSString * _Nonnull)password complete:(void (^ _Nonnull)(NSString * _Nullable, NSString * _Nullable, RKError * _Nullable))complete;
 - (void)tokenLoginWithUserId:(NSString * _Nonnull)userId token:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 修改密码
+/// \param oldPassword 旧密码
+///
+/// \param newPassword 新密码
+///
+/// \param complete 回调
+///
+- (void)changePasswdWithOldPassword:(NSString * _Nonnull)oldPassword newPassword:(NSString * _Nonnull)newPassword completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 重置密码
+/// \param phoneNum 手机号
+///
+/// \param password 新密码
+///
+/// \param scode 校验码
+///
+/// \param completion 回调
+///
+- (void)resetPasswdWithPhoneNum:(NSString * _Nonnull)phoneNum password:(NSString * _Nonnull)password scode:(NSString * _Nonnull)scode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
 - (void)logout;
+/// 获取用户信息
+/// \param completion 完成回调
+///
+- (void)fetchUserInfoWithCompletion:(void (^ _Nonnull)(RKError * _Nullable, SDKUserInfo * _Nullable))completion;
+/// 更新用户信息
+/// \param nickname 昵称
+///
+/// \param gender 性别 “male” ”female“
+///
+/// \param birthday 生日 “2019/07/08” “2019-07-08”
+///
+/// \param completion 完成回调
+///
+- (void)updateUserInfoWithNickname:(NSString * _Nonnull)nickname gender:(NSString * _Nonnull)gender birthday:(NSString * _Nonnull)birthday completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
 @property (nonatomic, readonly, copy) NSString * _Nullable token;
 @property (nonatomic, readonly, copy) NSString * _Nullable userId;
 @end
@@ -752,12 +817,12 @@ SWIFT_CLASS("_TtC8RokidSDK8RKDevice")
 
 
 @interface RKDevice (SWIFT_EXTENSION(RokidSDK))
-- (NSString * _Nonnull)getOnlineStateString SWIFT_WARN_UNUSED_RESULT SWIFT_DEPRECATED_OBJC("Swift method 'RKDevice.getOnlineStateString()' uses '@objc' inference deprecated in Swift 4; add '@objc' to provide an Objective-C entrypoint");
+- (NSString * _Nullable)defaultSkillIdOf:(NSString * _Nonnull)domainId SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 @interface RKDevice (SWIFT_EXTENSION(RokidSDK))
-- (NSString * _Nullable)defaultSkillIdOf:(NSString * _Nonnull)domainId SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)getOnlineStateString SWIFT_WARN_UNUSED_RESULT SWIFT_DEPRECATED_OBJC("Swift method 'RKDevice.getOnlineStateString()' uses '@objc' inference deprecated in Swift 4; add '@objc' to provide an Objective-C entrypoint");
 @end
 
 
@@ -1751,6 +1816,20 @@ typedef SWIFT_ENUM(NSInteger, SDKThirdAuthType, closed) {
 };
 
 
+SWIFT_CLASS("_TtC8RokidSDK11SDKUserInfo")
+@interface SDKUserInfo : NSObject
+/// 生日 “2019/07/08”
+@property (nonatomic, copy) NSString * _Nullable birthday;
+/// 用户 id
+@property (nonatomic, copy) NSString * _Nullable userId;
+/// 用户昵称
+@property (nonatomic, copy) NSString * _Nullable nickname;
+/// 用户性别 “male” ”female“
+@property (nonatomic, copy) NSString * _Nullable gender;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC8RokidSDK13SDKVuiManager")
 @interface SDKVuiManager : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -2138,14 +2217,79 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) RKAccountMan
 @property (nonatomic, readonly) BOOL isRefreshingToken;
 @end
 
-
-
 @class RKError;
+
+@interface RKAccountManager (SWIFT_EXTENSION(RokidSDK))
+/// 获取验证码，60s 过期。
+/// \param areaCode 手机号码所属区域号，比如：“+86”
+///
+/// \param phoneNum 手机号
+///
+/// \param completion 完成回调
+///
+- (void)getScodeWithAreaCode:(NSString * _Nonnull)areaCode phoneNum:(NSString * _Nonnull)phoneNum completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 校验验证码
+/// \param phoneNum 手机号
+///
+/// \param scode 验证码
+///
+/// \param completion 完成回调
+///
+- (void)checkScodeWithPhoneNum:(NSString * _Nonnull)phoneNum scode:(NSString * _Nonnull)scode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 注册账号
+/// \param phoneNum 手机号
+///
+/// \param password 密码
+///
+/// \param scode 手机收到的短信验证码
+///
+/// \param areaCode 手机号码所属区域号，比如：“+86”
+///
+/// \param completion 完成回调
+///
+- (void)registerWithPhoneNum:(NSString * _Nonnull)phoneNum password:(NSString * _Nonnull)password scode:(NSString * _Nonnull)scode areaCode:(NSString * _Nonnull)areaCode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+@end
+
+
+
+@class SDKUserInfo;
 
 @interface RKAccountManager (SWIFT_EXTENSION(RokidSDK))
 - (void)tempLoginWithName:(NSString * _Nonnull)name password:(NSString * _Nonnull)password complete:(void (^ _Nonnull)(NSString * _Nullable, NSString * _Nullable, RKError * _Nullable))complete;
 - (void)tokenLoginWithUserId:(NSString * _Nonnull)userId token:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 修改密码
+/// \param oldPassword 旧密码
+///
+/// \param newPassword 新密码
+///
+/// \param complete 回调
+///
+- (void)changePasswdWithOldPassword:(NSString * _Nonnull)oldPassword newPassword:(NSString * _Nonnull)newPassword completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 重置密码
+/// \param phoneNum 手机号
+///
+/// \param password 新密码
+///
+/// \param scode 校验码
+///
+/// \param completion 回调
+///
+- (void)resetPasswdWithPhoneNum:(NSString * _Nonnull)phoneNum password:(NSString * _Nonnull)password scode:(NSString * _Nonnull)scode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
 - (void)logout;
+/// 获取用户信息
+/// \param completion 完成回调
+///
+- (void)fetchUserInfoWithCompletion:(void (^ _Nonnull)(RKError * _Nullable, SDKUserInfo * _Nullable))completion;
+/// 更新用户信息
+/// \param nickname 昵称
+///
+/// \param gender 性别 “male” ”female“
+///
+/// \param birthday 生日 “2019/07/08” “2019-07-08”
+///
+/// \param completion 完成回调
+///
+- (void)updateUserInfoWithNickname:(NSString * _Nonnull)nickname gender:(NSString * _Nonnull)gender birthday:(NSString * _Nonnull)birthday completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
 @property (nonatomic, readonly, copy) NSString * _Nullable token;
 @property (nonatomic, readonly, copy) NSString * _Nullable userId;
 @end
@@ -2559,12 +2703,12 @@ SWIFT_CLASS("_TtC8RokidSDK8RKDevice")
 
 
 @interface RKDevice (SWIFT_EXTENSION(RokidSDK))
-- (NSString * _Nonnull)getOnlineStateString SWIFT_WARN_UNUSED_RESULT SWIFT_DEPRECATED_OBJC("Swift method 'RKDevice.getOnlineStateString()' uses '@objc' inference deprecated in Swift 4; add '@objc' to provide an Objective-C entrypoint");
+- (NSString * _Nullable)defaultSkillIdOf:(NSString * _Nonnull)domainId SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 @interface RKDevice (SWIFT_EXTENSION(RokidSDK))
-- (NSString * _Nullable)defaultSkillIdOf:(NSString * _Nonnull)domainId SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)getOnlineStateString SWIFT_WARN_UNUSED_RESULT SWIFT_DEPRECATED_OBJC("Swift method 'RKDevice.getOnlineStateString()' uses '@objc' inference deprecated in Swift 4; add '@objc' to provide an Objective-C entrypoint");
 @end
 
 
@@ -3556,6 +3700,20 @@ typedef SWIFT_ENUM(NSInteger, SDKThirdAuthType, closed) {
   SDKThirdAuthTypeXMLY = 2,
   SDKThirdAuthTypeKUGOU = 3,
 };
+
+
+SWIFT_CLASS("_TtC8RokidSDK11SDKUserInfo")
+@interface SDKUserInfo : NSObject
+/// 生日 “2019/07/08”
+@property (nonatomic, copy) NSString * _Nullable birthday;
+/// 用户 id
+@property (nonatomic, copy) NSString * _Nullable userId;
+/// 用户昵称
+@property (nonatomic, copy) NSString * _Nullable nickname;
+/// 用户性别 “male” ”female“
+@property (nonatomic, copy) NSString * _Nullable gender;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS("_TtC8RokidSDK13SDKVuiManager")
@@ -3941,14 +4099,79 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) RKAccountMan
 @property (nonatomic, readonly) BOOL isRefreshingToken;
 @end
 
-
-
 @class RKError;
+
+@interface RKAccountManager (SWIFT_EXTENSION(RokidSDK))
+/// 获取验证码，60s 过期。
+/// \param areaCode 手机号码所属区域号，比如：“+86”
+///
+/// \param phoneNum 手机号
+///
+/// \param completion 完成回调
+///
+- (void)getScodeWithAreaCode:(NSString * _Nonnull)areaCode phoneNum:(NSString * _Nonnull)phoneNum completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 校验验证码
+/// \param phoneNum 手机号
+///
+/// \param scode 验证码
+///
+/// \param completion 完成回调
+///
+- (void)checkScodeWithPhoneNum:(NSString * _Nonnull)phoneNum scode:(NSString * _Nonnull)scode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 注册账号
+/// \param phoneNum 手机号
+///
+/// \param password 密码
+///
+/// \param scode 手机收到的短信验证码
+///
+/// \param areaCode 手机号码所属区域号，比如：“+86”
+///
+/// \param completion 完成回调
+///
+- (void)registerWithPhoneNum:(NSString * _Nonnull)phoneNum password:(NSString * _Nonnull)password scode:(NSString * _Nonnull)scode areaCode:(NSString * _Nonnull)areaCode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+@end
+
+
+
+@class SDKUserInfo;
 
 @interface RKAccountManager (SWIFT_EXTENSION(RokidSDK))
 - (void)tempLoginWithName:(NSString * _Nonnull)name password:(NSString * _Nonnull)password complete:(void (^ _Nonnull)(NSString * _Nullable, NSString * _Nullable, RKError * _Nullable))complete;
 - (void)tokenLoginWithUserId:(NSString * _Nonnull)userId token:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 修改密码
+/// \param oldPassword 旧密码
+///
+/// \param newPassword 新密码
+///
+/// \param complete 回调
+///
+- (void)changePasswdWithOldPassword:(NSString * _Nonnull)oldPassword newPassword:(NSString * _Nonnull)newPassword completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
+/// 重置密码
+/// \param phoneNum 手机号
+///
+/// \param password 新密码
+///
+/// \param scode 校验码
+///
+/// \param completion 回调
+///
+- (void)resetPasswdWithPhoneNum:(NSString * _Nonnull)phoneNum password:(NSString * _Nonnull)password scode:(NSString * _Nonnull)scode completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
 - (void)logout;
+/// 获取用户信息
+/// \param completion 完成回调
+///
+- (void)fetchUserInfoWithCompletion:(void (^ _Nonnull)(RKError * _Nullable, SDKUserInfo * _Nullable))completion;
+/// 更新用户信息
+/// \param nickname 昵称
+///
+/// \param gender 性别 “male” ”female“
+///
+/// \param birthday 生日 “2019/07/08” “2019-07-08”
+///
+/// \param completion 完成回调
+///
+- (void)updateUserInfoWithNickname:(NSString * _Nonnull)nickname gender:(NSString * _Nonnull)gender birthday:(NSString * _Nonnull)birthday completion:(void (^ _Nonnull)(RKError * _Nullable))completion;
 @property (nonatomic, readonly, copy) NSString * _Nullable token;
 @property (nonatomic, readonly, copy) NSString * _Nullable userId;
 @end
@@ -4362,12 +4585,12 @@ SWIFT_CLASS("_TtC8RokidSDK8RKDevice")
 
 
 @interface RKDevice (SWIFT_EXTENSION(RokidSDK))
-- (NSString * _Nonnull)getOnlineStateString SWIFT_WARN_UNUSED_RESULT SWIFT_DEPRECATED_OBJC("Swift method 'RKDevice.getOnlineStateString()' uses '@objc' inference deprecated in Swift 4; add '@objc' to provide an Objective-C entrypoint");
+- (NSString * _Nullable)defaultSkillIdOf:(NSString * _Nonnull)domainId SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 @interface RKDevice (SWIFT_EXTENSION(RokidSDK))
-- (NSString * _Nullable)defaultSkillIdOf:(NSString * _Nonnull)domainId SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)getOnlineStateString SWIFT_WARN_UNUSED_RESULT SWIFT_DEPRECATED_OBJC("Swift method 'RKDevice.getOnlineStateString()' uses '@objc' inference deprecated in Swift 4; add '@objc' to provide an Objective-C entrypoint");
 @end
 
 
@@ -5359,6 +5582,20 @@ typedef SWIFT_ENUM(NSInteger, SDKThirdAuthType, closed) {
   SDKThirdAuthTypeXMLY = 2,
   SDKThirdAuthTypeKUGOU = 3,
 };
+
+
+SWIFT_CLASS("_TtC8RokidSDK11SDKUserInfo")
+@interface SDKUserInfo : NSObject
+/// 生日 “2019/07/08”
+@property (nonatomic, copy) NSString * _Nullable birthday;
+/// 用户 id
+@property (nonatomic, copy) NSString * _Nullable userId;
+/// 用户昵称
+@property (nonatomic, copy) NSString * _Nullable nickname;
+/// 用户性别 “male” ”female“
+@property (nonatomic, copy) NSString * _Nullable gender;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS("_TtC8RokidSDK13SDKVuiManager")
