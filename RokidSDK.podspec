@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RokidSDK"
-  s.version      = "1.10.0"
+  s.version      = "1.10.1"
   s.summary      = "Rokid Mobile SDK"
   s.swift_version = '4.0'
 
@@ -49,6 +49,5 @@ Pod::Spec.new do |s|
   s.dependency 'Alamofire'
   s.dependency 'MQTTClient', '~> 0.14.0'
   s.dependency 'CocoaAsyncSocket'
-  s.dependency 'ReachabilitySwift'
 
 end
