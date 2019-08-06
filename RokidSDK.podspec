@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RokidSDK"
-  s.version      = "1.10.1"
+  s.version      = "1.10.2"
   s.summary      = "Rokid Mobile SDK"
   s.swift_version = '4.0'
 
